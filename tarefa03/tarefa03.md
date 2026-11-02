@@ -177,6 +177,61 @@ relacionadas (autores e livros) em vez de guardar o nome e o país do autor repe
     
     A alteração da porta publicada permite acessar o MariaDB pela porta 3307 do computador hospedeiro sem 
     modificar a porta interna do serviço. A configuração separa o acesso externo da comunicação entre os 
-    contêineres.     
+    contêineres.    
 
-DESAFIO 02 - 
+---
+
+**DESAFIO 02 — Dois ambientes simultâneos: Configure duas pastas distintas no seu computador com arquivos docker-compose.yml e portas/volumes desacoplados. Explique como você garantiu que quatro contêineres rodassem em paralelo sem conflito de portas ou nomes.**
+
+    Foram configurados dois ambientes independentes utilizando Docker Compose, nas pastas tarefa03 e 
+    novo_ambiente.
+
+    Cada ambiente possui dois contêineres: um MariaDB e um CloudBeaver. Para evitar conflitos, foram utilizados 
+    nomes, portas e volumes distintos.
+
+    O ambiente original utiliza as portas 3307 (MariaDB) e 8978 (CloudBeaver), enquanto o segundo utiliza 3308 
+    (MariaDB) e 8979 (CloudBeaver).
+
+    A execução foi validada com o comando docker ps, que confirmou os quatro contêineres em funcionamento 
+    simultaneamente, sem conflitos de portas ou nomes.
+
+Evidência:
+
+    PS C:\Users\Cliente\Documents\Faculdade\Banco de Dados\dct2201-banco-de-dados\novo_ambiente> docker ps
+    CONTAINER ID   IMAGE                        COMMAND                  CREATED              STATUS              
+    PORTS                                         NAMES
+    bb9f9d7516af   dbeaver/cloudbeaver:latest   "./launch-product.sh"    About a minute ago   Up About a minute   
+    0.0.0.0:8979->8978/tcp, [::]:8979->8978/tcp   novo_ambiente-cloudbeaver
+    479f996c6101   mariadb:11                   "docker-entrypoint.s…"   About a minute ago   Up About a minute   
+    0.0.0.0:3308->3306/tcp, [::]:3308->3306/tcp   novo_ambiente-mariadb
+    e89b3b5593ea   dbeaver/cloudbeaver:latest   "./launch-product.sh"    About an hour ago    Up About an hour    
+    0.0.0.0:8978->8978/tcp, [::]:8978->8978/tcp   lab-cloudbeaver
+    7f3045547f38   mariadb:11                   "docker-entrypoint.s…"   About an hour ago    Up About an hour    
+    0.0.0.0:3307->3306/tcp, [::]:3307->3306/tcp   lab-mariadb
+
+---
+
+**DESAFIO 03  — Persistência do volume e alteração de senha: Altere o valor de MARIADB_ROOT_PASSWORD no arquivo .env para uma nova senha qualquer. Execute docker compose up -d e observe que a autenticação antiga continua válida enquanto a nova falha. Explique detalhadamente por que isso ocorre e quais são os dois caminhos possíveis para aplicar uma nova senha de root.
+
+    Inicialmente, foi alterado o valor da variável MARIADB_ROOT_PASSWORD no arquivo .env e executado o comando 
+    docker compose up -d. Entretanto, a autenticação com a nova senha falhou, enquanto a senha antiga continuou 
+    funcionando.
+
+    Isso ocorre porque, na primeira inicialização, o MariaDB utiliza a variável de ambiente para criar o usuário 
+    root e definir sua senha. Essas informações ficam armazenadas no volume persistente associado ao diretório /
+    var/lib/mysql. Nas inicializações seguintes, o banco identifica que já existe uma estrutura de dados e não 
+    executa novamente a configuração inicial.
+
+    Para aplicar a nova senha sem perder os dados, foi utilizado o comando ALTER USER diretamente no MariaDB. 
+    Após a alteração, a autenticação com a nova senha foi testada com sucesso.
+    
+    Por fim, foram realizadas consultas para verificar a quantidade de registros, confirmando que os 14 autores e 
+    os 36 livros continuavam armazenados no banco de dados.
+    
+    Conclui-se que a persistência dos volumes permite preservar os dados mesmo após alterações e recriações de 
+    contêineres. Também foi possível observar que as variáveis de ambiente utilizadas na inicialização nã0 
+    substituem a administração direta das credenciais de um banco já existente.
+
+Evidência: 
+
+    
