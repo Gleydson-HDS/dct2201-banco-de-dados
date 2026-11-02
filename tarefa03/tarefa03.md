@@ -151,3 +151,32 @@ relacionadas (autores e livros) em vez de guardar o nome e o país do autor repe
     manter a consistência e a integridade dos dados.
 
 ---
+# **RELATÓRIO — TAREFA 03: DOCKER, MARIADB e ADMINISTRAÇÃO DE SGBD**
+
+### **BLOCO A - DOCKER E INSFRAESTRUTURA DE AMBIENTE**
+
+**DESAFIO 01 - Alteração de porta do SGBD: Altere a variável MARIADB_PORT no .env para a porta 3307. Reinicie o serviço e explique como você reconfigurou a conexão do CloudBeaver para acessar o banco na porta alterada.**
+
+    A variável MARIADB_PORT do arquivo .env foi alterada de 3306 para 3307. Em seguida, a configuração do 
+    Docker Compose foi validada e os contêineres foram recriados para aplicar o novo mapeamento de portas.
+
+    Comandos utilizados:
+
+    powershell
+    docker compose config --quiet
+    docker compose up -d --force-recreate
+    docker ps
+    docker port lab-mariadb
+   
+    A conexão do CloudBeaver com o MariaDB permaneceu configurada com o host mariadb e a porta interna 3306. 
+    Isso ocorre porque os dois serviços se comunicam pela rede virtual do Docker, utilizando a porta interna do 
+    serviço.
+    
+    Para conexões originadas diretamente no Windows, fora da rede Docker, a configuração passa a utilizar o host 
+    localhost e a porta 3307.
+    
+    A alteração da porta publicada permite acessar o MariaDB pela porta 3307 do computador hospedeiro sem 
+    modificar a porta interna do serviço. A configuração separa o acesso externo da comunicação entre os 
+    contêineres.     
+
+DESAFIO 02 - 
