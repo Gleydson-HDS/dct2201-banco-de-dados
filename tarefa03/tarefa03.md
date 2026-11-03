@@ -397,3 +397,28 @@ Evidências — Sequência de comandos SQL
     SELECT * FROM emprestimos;
 
 ---
+
+**DESAFIO 08 - Consulta de pendências: Escreva uma consulta que liste todos os empréstimos pendentes (não devolvidos), trazendo o título do livro, a data de empréstimo e o nome do autor do livro.**
+    
+    Foi desenvolvida uma consulta SQL utilizando INNER JOIN para relacionar as tabelas emprestimos, livros e 
+    autores.
+    
+    A consulta retorna o título do livro, a data do empréstimo e o nome do respectivo autor, utilizando a 
+    condição WHERE e.devolvido = FALSE para exibir somente os empréstimos que ainda não foram devolvidos.  
+
+Evidências — Sequência de comandos SQL
+
+    Consulta dos empréstimos pendentes:
+    
+    SELECT
+        l.titulo AS livro,
+        e.data_emprestimo,
+        a.nome AS autor
+    FROM emprestimos e
+    INNER JOIN livros l ON e.livro_id = l.id
+    INNER JOIN autores a ON l.autor_id = a.id
+    WHERE e.devolvido = FALSE;
+    
+    A consulta permite identificar os empréstimos que ainda estão pendentes e seus respectivos livros e autores.
+
+---
