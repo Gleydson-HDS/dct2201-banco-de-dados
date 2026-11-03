@@ -372,3 +372,28 @@ Evidências:
 
 ---
 
+**DESAFIO 07 - Carga da tabela empréstimos: Escreva as instruções INSERT para cadastrar três registros de empréstimos, sendo dois com status não devolvido (FALSE ou 0) e um devolvido (TRUE ou 1).**
+
+    Foram inseridos três registros na tabela emprestimos, utilizando o comando SQL INSERT INTO.
+
+    Os registros foram configurados com diferentes situações: dois empréstimos com status FALSE (não devolvidos) 
+    e um com status TRUE (devolvido).
+
+    Após a inserção, foi executada uma consulta com SELECT * FROM emprestimos para verificar os registros 
+    cadastrados.
+
+Evidências — Sequência de comandos SQL
+
+    Inserção dos registros:
+
+    INSERT INTO emprestimos (livro_id, data_emprestimo, devolvido)
+    VALUES
+        (1, '2026-10-20', FALSE),
+        (2, '2026-10-22', FALSE),
+        (3, '2026-10-25', TRUE);
+
+    Verificação dos registros:
+
+    SELECT * FROM emprestimos;
+
+---
