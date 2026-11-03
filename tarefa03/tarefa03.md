@@ -211,7 +211,7 @@ Evidência:
 
 ---
 
-**DESAFIO 03  — Persistência do volume e alteração de senha: Altere o valor de MARIADB_ROOT_PASSWORD no arquivo .env para uma nova senha qualquer. Execute docker compose up -d e observe que a autenticação antiga continua válida enquanto a nova falha. Explique detalhadamente por que isso ocorre e quais são os dois caminhos possíveis para aplicar uma nova senha de root.
+**DESAFIO 03  — Persistência do volume e alteração de senha: Altere o valor de MARIADB_ROOT_PASSWORD no arquivo .env para uma nova senha qualquer. Execute docker compose up -d e observe que a autenticação antiga continua válida enquanto a nova falha. Explique detalhadamente por que isso ocorre e quais são os dois caminhos possíveis para aplicar uma nova senha de root.**
 
     Inicialmente, foi alterado o valor da variável MARIADB_ROOT_PASSWORD no arquivo .env e executado o comando 
     docker compose up -d. Entretanto, a autenticação com a nova senha falhou, enquanto a senha antiga continuou 
@@ -448,3 +448,24 @@ Evidências — Sequência de comandos SQL
     utilização de agrupamento e filtragem com HAVING.
 
 ---
+
+**DESAFIO 10 - Atualização proporcional (UPDATE): Execute uma instrução DML para reajustar o preço de um livro específico em 10% de acréscimo. Transcreva a consulta UPDATE utilizada e comente o resultado.**
+Foi realizada uma atualização na tabela livros utilizando o comando SQL UPDATE, com o objetivo de reajustar o preço de um livro específico em 10%.
+
+    A operação foi feita por meio da multiplicação do preço atual por 1.10, aplicando o acréscimo de 10%. A cláusula WHERE foi utilizada para garantir que somente o livro selecionado fosse atualizado.
+
+Evidências — Sequência de comandos SQL
+
+    Atualização do preço:
+    
+    UPDATE livros
+    SET preco = preco * 1.10
+    WHERE id = 1;
+    
+    Verificação do resultado:
+    
+    SELECT id, titulo, preco
+    FROM livros
+    WHERE id = 1;
+    
+    O resultado permite verificar o novo preço do livro após o reajuste. A utilização da cláusula WHERE evita que os preços dos demais livros sejam alterados.
