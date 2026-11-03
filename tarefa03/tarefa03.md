@@ -469,3 +469,40 @@ Evidências — Sequência de comandos SQL
     WHERE id = 1;
     
     O resultado permite verificar o novo preço do livro após o reajuste. A utilização da cláusula WHERE evita que os preços dos demais livros sejam alterados.
+
+---
+
+**DESAFIO 11 - Remoção condicional (DELETE): Cadastre um novo autor sem nenhum livro associado e, em seguida, execute a instrução DELETE para removê-lo da tabela autores. Explique por que essa remoção foi aceita sem violar a restrição de chave estrangeira.**
+
+    Foi cadastrado um novo autor na tabela autores, sem associação com nenhum livro da tabela livros. Em seguida, foi executado o comando DELETE para remover esse registro.
+    
+    A remoção foi aceita porque nenhum livro possuía uma chave estrangeira (autor_id) referenciando o identificador do autor excluído. Dessa forma, a operação não violou a restrição de integridade referencial.
+    
+Evidências — Sequência de comandos SQL
+    
+    Cadastro do autor:
+    
+    INSERT INTO autores (nome, pais, ano_nascimento)
+    VALUES ('Autor Temporario', 'Brasil', 1990);
+    
+    Verificação do cadastro:
+    
+    SELECT *
+    FROM autores
+    WHERE nome = 'Autor Temporario';
+    
+    Remoção do autor:
+    
+    DELETE FROM autores
+    WHERE nome = 'Autor Temporario';
+    
+    Confirmação da remoção:
+    
+    SELECT *
+    FROM autores
+    WHERE nome = 'Autor Temporario';
+    
+    A última consulta permite confirmar que o autor não permanece cadastrado na tabela.
+
+---
+
