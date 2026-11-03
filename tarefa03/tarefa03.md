@@ -422,3 +422,29 @@ Evidências — Sequência de comandos SQL
     A consulta permite identificar os empréstimos que ainda estão pendentes e seus respectivos livros e autores.
 
 ---
+
+**DESAFIO 09 - Filtragem de grupos com HAVING: Escreva uma consulta que agrupe os livros por autor e retorne a contagem total de obras de cada um, filtrando exclusivamente autores que possuem mais de 1 livro cadastrado (HAVING COUNT(*) > 1).**
+    
+    Foi desenvolvida uma consulta SQL utilizando INNER JOIN para relacionar as tabelas autores e livros, 
+    agrupando os registros por autor com GROUP BY.
+    
+    A função COUNT(*) foi utilizada para contabilizar a quantidade de livros cadastrados para cada autor. Em 
+    seguida, foi aplicada a cláusula HAVING COUNT(*) > 1 para retornar exclusivamente os autores que possuem mais 
+    de uma obra cadastrada.
+
+Evidências — Sequência de comandos SQL
+
+    Consulta de livros por autor:
+    
+    SELECT
+        a.nome AS autor,
+        COUNT(*) AS total_livros
+    FROM autores a
+    INNER JOIN livros l ON a.id = l.autor_id
+    GROUP BY a.id, a.nome
+    HAVING COUNT(*) > 1;
+    
+    A consulta permite identificar os autores com maior quantidade de livros cadastrados, demonstrando a 
+    utilização de agrupamento e filtragem com HAVING.
+
+---
