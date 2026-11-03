@@ -278,5 +278,65 @@ Evidência:
         Debug this Compose error with Gordon → docker ai "help me fix this compose error"
 
 ---
-      
+
+**DESAFIO 05 - Inspeção de variáveis no compose: Execute docker compose config no terminal e liste três variáveis de ambiente que foram resolvidas e interpoladas a partir do .env.**
+
+    Foi executado o comando docker compose config para visualizar a configuração final do ambiente Docker após a 
+    interpolação das variáveis definidas no arquivo .env.
     
+    Foram identificadas três variáveis:
+
+    MARIADB_ROOT_PASSWORD: define a senha do usuário root do MariaDB.
+
+    MARIADB_DATABASE: define o banco de dados inicial.
+
+    MARIADB_PORT: define a porta externa utilizada para acessar o serviço MariaDB.
+
+    O comando permite verificar se as variáveis foram corretamente interpretadas pelo Docker Compose antes da 
+    inicialização dos serviços, facilitando a identificação de erros de configuração.
+
+Evidência:
+
+    PS C:\Users\Cliente\Documents\Faculdade\Banco de Dados\dct2201-banco-de-dados\tarefa03> docker compose config
+    name: tarefa03
+    services:
+      cloudbeaver:
+        container_name: lab-cloudbeaver
+        image: dbeaver/cloudbeaver:latest
+        networks:
+          default: null
+        depends_on:
+          mariadb:
+            condition: service_started
+            required: true
+        ports:
+          - mode: ingress
+            target: 8978
+            published: "8978"
+            protocol: tcp
+      mariadb:
+        container_name: lab-mariadb
+        environment:
+          MARIADB_DATABASE: labdb
+          MARIADB_ROOT_PASSWORD: NewRootLab2026!aB
+        image: mariadb:11
+        networks:
+          default: null
+        volumes:
+          - type: volume
+            source: mariadb_data
+            target: /var/lib/mysql
+            volume: {}
+        ports:
+          - mode: ingress
+            target: 3306
+            published: "3307"
+            protocol: tcp
+    networks:
+      default:
+        name: tarefa03_default
+    volumes:
+      mariadb_data:
+        name: tarefa03_mariadb_data
+
+--- 
