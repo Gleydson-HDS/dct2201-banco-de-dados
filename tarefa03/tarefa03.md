@@ -506,3 +506,32 @@ Evidências — Sequência de comandos SQL
 
 ---
 
+**DESAFIO 12 - Criação de usuário restrito para relatórios: Crie um usuário chamado relatorios com senha Relatorios2026!, concedendo privilégio de SELECT exclusivamente sobre a tabela livros do banco biblioteca.**
+
+    Foi criado o usuário relatorios no MariaDB, com uma senha específica e acesso restrito à tabela livros do banco de dados biblioteca.
+    
+    Foi concedido exclusivamente o privilégio SELECT, permitindo consultar os registros da tabela autorizada, sem permissão de leitura nas demais tabelas. Essa configuração segue o princípio do menor privilégio, limitando o acesso do usuário às operações necessárias.
+
+Evidências — Sequência de comandos SQL
+
+    Criação do usuário:
+    
+    CREATE USER 'relatorios'@'%' IDENTIFIED BY 'Relatorios2026!';
+    
+    Concessão do privilégio de leitura:
+    
+    GRANT SELECT ON biblioteca.livros TO 'relatorios'@'%';
+    
+    Verificação das permissões:
+    
+    SHOW GRANTS FOR 'relatorios'@'%';
+    
+    Teste de consulta na tabela autorizada:
+    
+    SELECT * FROM biblioteca.livros;
+    
+    Teste de acesso à tabela não autorizada:
+    
+    SELECT * FROM biblioteca.autores;
+
+**DESAFIO 13 - 
