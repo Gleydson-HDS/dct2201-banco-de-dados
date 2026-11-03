@@ -534,4 +534,34 @@ Evidências — Sequência de comandos SQL
     
     SELECT * FROM biblioteca.autores;
 
-**DESAFIO 13 - 
+**DESAFIO 13 - Teste de restrição de visibilidade: Conecte-se com o usuário relatorios, tente consultar a tabela autores e transcreva a mensagem de erro emitida pelo SGBD, explicando o motivo do bloqueio.**
+
+    Foi realizado um teste de acesso utilizando o usuário relatorios, com o objetivo de verificar se as permissões concedidas anteriormente estavam funcionando corretamente.
+    
+    Após conectar-se com o usuário, foi executada uma consulta à tabela autores. Como esse usuário possui exclusivamente o privilégio SELECT sobre a tabela livros, o MariaDB bloqueou a operação.
+
+Evidências — Sequência de comandos
+
+    Conexão com o usuário restrito:
+
+    docker exec -it lab-mariadb mariadb -u relatorios -p
+
+    Tentativa de consulta à tabela não autorizada:
+
+    USE biblioteca;
+
+    SELECT * FROM autores;
+
+    Mensagem de erro do SGBD:
+
+    ERROR 1142 (42000): SELECT command denied to user 'relatorios'@'localhost' for table 'autores'
+
+Comentário do resultado
+
+    O erro 1142 indica que o comando SELECT foi negado por falta de permissão. Isso ocorre porque o usuário relatorios não recebeu autorização para consultar a tabela autores, tendo acesso de leitura somente à tabela livros.
+    
+    Esse comportamento demonstra o funcionamento do controle de privilégios do MariaDB e a aplicação do princípio do menor privilégio.
+
+---
+
+
