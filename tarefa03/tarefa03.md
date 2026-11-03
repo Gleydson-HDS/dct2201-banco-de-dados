@@ -564,4 +564,40 @@ Comentário do resultado
 
 ---
 
+**DESAFIO 14 - Concessão e revogação dinâmica de privilégios: Conectado como root, conceda privilégio de INSERT na tabela livros para o usuário relatorios. Realize uma inserção de teste com sucesso e, em seguida, revogue o privilégio via REVOKE. Descreva discursivamente o resultado de tentar inserir novamente após a revogação.**
 
+    Foi concedido temporariamente ao usuário relatorios o privilégio INSERT sobre a tabela livros do banco de dados biblioteca.
+    
+    Inicialmente, o usuário conseguiu inserir um novo registro na tabela, demonstrando que a permissão havia sido concedida corretamente. Em seguida, o privilégio foi revogado utilizando o comando REVOKE.
+    
+    Após a revogação, uma nova tentativa de inserção foi bloqueada pelo MariaDB, pois o usuário não possuía mais autorização para executar operações INSERT. O privilégio SELECT permaneceu ativo, permitindo apenas a consulta dos registros.
+    
+ Eidências — Sequência de comandos SQL
+    
+        Concessão do privilégio:
+    
+    GRANT INSERT ON biblioteca.livros TO 'relatorios'@'%';
+    
+        Inserção de teste:
+    
+    INSERT INTO biblioteca.livros
+    (titulo, ano_publicacao, preco, autor_id)
+    VALUES
+    ('Livro de Teste', 2026, 35.90, 1);
+    
+        Revogação do privilégio:
+    
+    REVOKE INSERT ON biblioteca.livros FROM 'relatorios'@'%';
+    
+        Verificação das permissões restantes:
+    
+    SHOW GRANTS FOR 'relatorios'@'%';
+    
+        Nova tentativa de inserção após a revogação:
+    
+    INSERT INTO biblioteca.livros
+    (titulo, ano_publicacao, preco, autor_id)
+    VALUES
+    ('Segundo Livro de Teste', 2026, 29.90, 1);
+    
+    Após a revogação, a tentativa de inserção retorna o erro ERROR 1142, indicando que o comando INSERT foi negado por falta de permissão. Isso demonstra que os privilégios de usuários podem ser concedidos e revogados dinamicamente, sem a necessidade de excluir ou recriar a conta.
