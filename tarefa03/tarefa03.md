@@ -340,3 +340,35 @@ Evidência:
         name: tarefa03_mariadb_data
 
 --- 
+
+**DESAFIO 06 - Criação da tabela de empréstimos: Escreva o comando DDL para criar a tabela emprestimos contendo os campos id (INT AUTO_INCREMENT PRIMARY KEY), livro_id (INT), data_emprestimo (DATE) e devolvido (BOOLEAN), com restrição de chave estrangeira referenciando livros(id).**
+
+    Foi criada a tabela emprestimos no banco de dados biblioteca, utilizando o comando DDL CREATE TABLE.
+
+    A tabela possui os campos id, livro_id, data_emprestimo e devolvido. O campo id foi definido como chave 
+    primária com incremento automático (AUTO_INCREMENT), enquanto livro_id foi definido como chave estrangeira, 
+    referenciando o campo id da tabela livros.
+
+    Essa estrutura permite registrar os empréstimos de livros, armazenar suas respectivas datas e identificar se 
+    cada empréstimo já foi devolvido.
+
+Evidências:
+
+    CREATE TABLE emprestimos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        livro_id INT,
+        data_emprestimo DATE,
+        devolvido BOOLEAN,
+        FOREIGN KEY (livro_id) REFERENCES livros(id)
+    );
+
+    Verificação da estrutura:
+    
+    DESCRIBE emprestimos;
+    
+    Verificação das restrições e chaves:
+    
+    SHOW CREATE TABLE emprestimos;
+
+---
+
