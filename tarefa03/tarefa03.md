@@ -246,5 +246,37 @@ Evidência:
     Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
     
     MariaDB [(none)]>
-   
+
+---
+
+**DESAFIO 04 - Comportamento da validação estrita (:?): Apague temporariamente o arquivo .env (ou comente a linha da senha de root) e execute docker compose up -d. Documente a mensagem de erro emitida pelo Compose e explique discursivamente a importância do modificador :? em ambientes profissionais.**
+
+    Foi realizado um teste removendo temporariamente o arquivo .env e executando o comando docker compose up -d.
+ 
+    Como a variável MARIADB_ROOT_PASSWORD não estava definida, o Docker Compose interrompeu a validação da 
+    configuração e apresentou uma mensagem informando que a variável era obrigatória, conforme a regra 
+    ${MARIADB_ROOT_PASSWORD:?mensagem} definida no arquivo docker-compose.yml.
+    
+    O modificador :? é importante em ambientes profissionais porque impede que serviços sejam iniciados sem 
+    configurações essenciais. Isso reduz erros de implantação, facilita o diagnóstico de problemas e aumenta a 
+    confiabilidade do ambiente.
+    
+    Após o teste, o arquivo .env foi restaurado, preservando as configurações originais.
+
+Evidência:
+
+    PS C:\Users\Cliente> cd "C:\Users\Cliente\Documents\Faculdade\Banco de Dados\dct2201-banco-de-dados\tarefa03"
+    PS C:\Users\Cliente\Documents\Faculdade\Banco de Dados\dct2201-banco-de-dados\tarefa03> Copy-Item .env 
+    .env.backup
+    PS C:\Users\Cliente\Documents\Faculdade\Banco de Dados\dct2201-banco-de-dados\tarefa03> Rename-Item .env 
+    .env.temp
+    PS C:\Users\Cliente\Documents\Faculdade\Banco de Dados\dct2201-banco-de-dados\tarefa03> docker compose up -d
+    error while interpolating services.mariadb.environment.MARIADB_ROOT_PASSWORD: required variable 
+    MARIADB_ROOT_PASSWORD is missing a value: defina MARIADB_ROOT_PASSWORD no arquivo .env
+
+    What's next:
+        Debug this Compose error with Gordon → docker ai "help me fix this compose error"
+
+---
+      
     
