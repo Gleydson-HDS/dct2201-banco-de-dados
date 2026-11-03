@@ -601,3 +601,13 @@ Comentário do resultado
     ('Segundo Livro de Teste', 2026, 29.90, 1);
     
     Após a revogação, a tentativa de inserção retorna o erro ERROR 1142, indicando que o comando INSERT foi negado por falta de permissão. Isso demonstra que os privilégios de usuários podem ser concedidos e revogados dinamicamente, sem a necessidade de excluir ou recriar a conta.
+
+---
+
+**DESAFIO 15 - Script idempotente de automação (setup.sql): Desenvolva um script SQL completo chamado setup.sql que recrie do zero todo o banco de dados biblioteca, suas tabelas, restrições, usuários (app_biblioteca, consulta) com privilégios e a carga de dados. Versiona esse arquivo no seu repositório pessoal no GitHub.**
+
+    Foi desenvolvido o arquivo setup.sql para automatizar a criação do banco de dados biblioteca. O script realiza a exclusão e recriação do banco, cria as tabelas autores, livros e emprestimos, define as chaves primárias e estrangeiras e insere os dados iniciais.
+    
+    Também foram criados os usuários app_biblioteca e consulta, com permissões específicas: o primeiro possui privilégios de consulta, inserção, atualização e exclusão de registros, enquanto o segundo possui apenas permissão de leitura.
+    
+    Ao final, foram incluídas consultas para verificar a quantidade de registros nas tabelas e os privilégios dos usuários.
